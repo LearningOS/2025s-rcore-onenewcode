@@ -7,6 +7,7 @@
 //!
 //! We then call [`println!`] to display `Hello, world!`.
 
+// 禁止缺少文档注释。
 #![deny(missing_docs)]
 #![deny(warnings)]
 #![no_std]

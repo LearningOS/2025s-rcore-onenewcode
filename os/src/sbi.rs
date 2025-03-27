@@ -1,7 +1,7 @@
 //! SBI call wrappers
 
 use core::arch::asm;
-
+// 功能指令编号
 const SBI_CONSOLE_PUTCHAR: usize = 1;
 
 /// general sbi call
@@ -12,6 +12,7 @@ fn sbi_call(which: usize, arg0: usize, arg1: usize, arg2: usize) -> usize {
         asm!(
             "li x16, 0",
             "ecall",
+            // 将 arg0 放入寄存器 x10，并在调用结束后将结果存储到 ret 中。
             inlateout("x10") arg0 => ret,
             in("x11") arg1,
             in("x12") arg2,

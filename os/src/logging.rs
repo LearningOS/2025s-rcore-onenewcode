@@ -32,6 +32,7 @@ impl Log for SimpleLogger {
 
 /// initiate logger
 pub fn init() {
+    // 指定日志的生命周期
     static LOGGER: SimpleLogger = SimpleLogger;
     log::set_logger(&LOGGER).unwrap();
     log::set_max_level(match option_env!("LOG") {
