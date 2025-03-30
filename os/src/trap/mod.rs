@@ -31,6 +31,7 @@ pub fn init() {
         fn __alltraps();
     }
     unsafe {
+        // stvec 控制 Trap 处理代码的入口地址
         stvec::write(__alltraps as usize, TrapMode::Direct);
     }
 }

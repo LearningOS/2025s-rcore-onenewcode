@@ -54,6 +54,7 @@ struct AppManager {
 }
 
 impl AppManager {
+    // 连续存储app，前一个结束等于后一个开始
     pub fn print_app_info(&self) {
         println!("[kernel] num_app = {}", self.num_app);
         for i in 0..self.num_app {
@@ -73,7 +74,7 @@ impl AppManager {
             crate::board::QEMU_EXIT_HANDLE.exit_success();
         }
         println!("[kernel] Loading app_{}", app_id);
-        // clear app area
+        // clear app area，申请运行区域
         core::slice::from_raw_parts_mut(APP_BASE_ADDRESS as *mut u8, APP_SIZE_LIMIT).fill(0);
         let app_src = core::slice::from_raw_parts(
             self.app_start[app_id] as *const u8,
@@ -87,6 +88,9 @@ impl AppManager {
         // Therefore, fence.i must be executed after we have loaded
         // the code of the next app into the instruction memory.
         // See also: riscv non-priv spec chapter 3, 'Zifencei' extension.
+        // 内存屏障
+        // 确保所有之前的写操作（包括对指令内存的写操作）已经完成并全局可见。
+        // 刷新指令缓存，使后续的指令取指操作能够看到最新的指令内容。
         asm!("fence.i");
     }
 

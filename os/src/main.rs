@@ -50,7 +50,7 @@ fn clear_bss() {
             .fill(0);
     }
 }
-
+// 从连接脚本，汇编，c代码中获取
 /// the rust entry-point of os
 #[no_mangle]
 pub fn rust_main() -> ! {
