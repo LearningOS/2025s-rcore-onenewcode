@@ -137,19 +137,19 @@ impl TaskManager {
         }
     }
     ///累加
-    pub fn syscall_plus (&self,id:usize){
+    pub fn syscall_plus(&self, id: usize) {
         let current_index = self.inner.exclusive_access().current_task;
         match id {
-            64 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[0]+=1,
-            93 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[1]+=1,
-            124 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[2]+=1,
-            169 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[3]+=1,
-            410 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[4]+=1,
-            _=> panic!("Unsupported syscall_id: {}", id),
+            64 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[0] += 1,
+            93 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[1] += 1,
+            124 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[2] += 1,
+            169 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[3] += 1,
+            410 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[4] += 1,
+            _ => panic!("Unsupported syscall_id: {}", id),
         }
     }
     ///返回计数
-    pub fn syscall_count (&self,id:usize) -> isize{
+    pub fn syscall_count(&self, id: usize) -> isize {
         let current_index = self.inner.exclusive_access().current_task;
         match id {
             64 => return self.inner.exclusive_access().tasks[current_index].task_syscall_count[0],
@@ -157,7 +157,7 @@ impl TaskManager {
             124 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[2],
             169 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[3],
             410 => self.inner.exclusive_access().tasks[current_index].task_syscall_count[4],
-            _=> panic!("Unsupported syscall_id: {}", id),
+            _ => panic!("Unsupported syscall_id: {}", id),
         }
     }
 }
